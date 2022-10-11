@@ -12,8 +12,20 @@ app.get('/', (_request, response) => {
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 
 
-app.get('/products', async (request, response) => productsModel.getAll(request, response));
+app.get('/products', async (_request, response) => {
+  const results = await productsModel.getAll();
+  if (results.length !== 0) {
+  return response.status(200).json(results);
+  }
+});
 
-app.get('/products/:id', (request, response) => { productsModel.getById(request, response); });
+app.get('/products/:id', async (request, response) => {
+  const { id } = request.params;
+  const results = await productsModel.getById(id);
+  if (results.length !== 0) {
+  return response.status(200).json(results[0]);
+  } 
+    return response.status(404).json({ message: 'Product not found' });
+});
 
 module.exports = app;

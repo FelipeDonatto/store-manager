@@ -1,19 +1,14 @@
 const connection = require('./connection');
 
-async function getAll(_req, res) {
+async function getAll() {
   const [results] = await connection.execute('SELECT * FROM StoreManager.products;');
-  if (results.length !== 0) {
-  return res.status(200).json(results);
-  }
+  return results;
 }
 
-async function getById(req, res) {
+async function getById(id) {
   const [results] = await connection
-    .execute(`SELECT * FROM StoreManager.products WHERE id = ${req.params.id};`);
-  if (results.length !== 0) {
-  return res.status(200).json(results[0]);
-  } 
-    return res.status(404).json({ message: 'Product not found' });
+    .execute(`SELECT * FROM StoreManager.products WHERE id = ${id};`);
+  return results;
 }
 
 module.exports = {
