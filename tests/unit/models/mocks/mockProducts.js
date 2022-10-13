@@ -12,7 +12,12 @@ const allProducts = [
     name: 'Escudo do Capitão América'
   },
 ]
+const newProduct =  {
+    id: 4,
+    name: 'newprod'
+  }
 
 module.exports = {
   allProducts,
+  newProduct,
 }
