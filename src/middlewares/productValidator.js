@@ -1,3 +1,5 @@
+const { getById } = require('../models/products.model');
+
 function productValidator(req, res, next) {
     const { name } = req.body;
     const minLen = 5;
@@ -11,4 +13,14 @@ function productValidator(req, res, next) {
 
     next();
 }
-module.exports = productValidator;
+
+async function verifyProductId(req, res, next) {
+  const { id } = req.params;
+  const product = await getById(id);
+  console.log(product);
+    if (product.length === 0) {
+    return res.status(404).json({ message: 'Product not found' });
+    }
+    next();
+}
+module.exports = { productValidator, verifyProductId };

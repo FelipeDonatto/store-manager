@@ -21,8 +21,16 @@ const newProduct = async (req, res) => {
   res.status(newP.status).json(newP.product);
 };
 
+const modifyProduct = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+  const modifiedP = await productsServices.modifyProduct(id, name);
+  res.status(modifiedP.status).json(modifiedP.product);
+};
+
 module.exports = {
   allProducts,
   productById,
   newProduct,
+  modifyProduct,
 };

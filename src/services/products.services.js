@@ -18,9 +18,14 @@ const getNewProduct = async (prodName) => {
   const newProd = await productsModel.insert(prodName);
   return { error: null, product: newProd, status: 201 };
 };
+const modifyProduct = async (id, name) => {
+  const newProd = await productsModel.modify(id, name);
+  return { error: null, product: newProd, status: 200 };
+};
 
 module.exports = {
   getAllProducts,
   getProductById,
   getNewProduct,
+  modifyProduct,
 };
